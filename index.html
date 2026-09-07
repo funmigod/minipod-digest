@@ -4,199 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Minipod Digest</title>
-<style>
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0;
-    background: #f7f5ef;
-    color: #1c1c1a;
-    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
-  }
-  .serif { font-family: Georgia, "Iowan Old Style", "Times New Roman", serif; }
-  .mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-variant-numeric: tabular-nums; }
-  a { color: inherit; }
-
-  /* ---------- Hero ---------- */
-  .hero {
-    position: relative;
-    overflow: hidden;
-    background: #d9e8de;
-    padding: 56px 24px 64px;
-    text-align: center;
-  }
-  .hero .ghost {
-    position: absolute;
-    left: 50%;
-    top: -0.28em;
-    transform: translateX(-50%);
-    font-size: clamp(90px, 16vw, 220px);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    color: #c7dbcd;
-    white-space: nowrap;
-    user-select: none;
-    z-index: 0;
-    line-height: 1;
-  }
-  .hero .ghost.bottom { top: auto; bottom: -0.42em; }
-  .hero-inner { position: relative; z-index: 1; }
-  .hero h1 {
-    margin: 0;
-    font-size: clamp(48px, 8vw, 84px);
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    color: #16231c;
-    text-wrap: balance;
-  }
-  .hero .tagline {
-    margin: 14px 0 0;
-    font-size: 15.5px;
-    color: #3f5147;
-    letter-spacing: 0.02em;
-  }
-  .hero .meta-row {
-    margin-top: 22px;
-    display: inline-flex;
-    gap: 10px;
-    align-items: center;
-    font-size: 12.5px;
-    color: #3f5147;
-    background: rgba(255,255,255,0.45);
-    border: 1px solid rgba(22,35,28,0.12);
-    border-radius: 999px;
-    padding: 6px 14px;
-  }
-  .hero .meta-row .dot { width: 6px; height: 6px; border-radius: 50%; background: #6b6b63; }
-
-  /* ---------- Sections ---------- */
-  main { max-width: 1180px; margin: 0 auto; padding: 8px 24px 80px; }
-  section.group { padding-top: 48px; }
-  .group-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 12px;
-    border-bottom: 2px solid #e4e1d8;
-    padding-bottom: 12px;
-    margin-bottom: 22px;
-  }
-  .group-head h2 {
-    margin: 0;
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-  }
-  .group-head .count {
-    font-size: 13px;
-    color: #6b6b63;
-    white-space: nowrap;
-  }
-
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 22px;
-  }
-
-  .card {
-    background: #ffffff;
-    border: 1px solid #e4e1d8;
-    border-radius: 14px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 1px 2px rgba(28,28,26,0.04), 0 10px 24px -18px rgba(28,28,26,0.25);
-  }
-  .card .top {
-    padding: 16px 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 10px;
-    color: #f3efe4;
-  }
-  .card.cycle .top { background: linear-gradient(135deg, #24463b, #1b342c); }
-  .card.other .top { background: linear-gradient(135deg, #8a6a52, #6f5340); }
-  .card.triage .top { background: linear-gradient(135deg, #8a3b2f, #6e2e24); }
-  .card .top .label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.92; }
-  .card .top .date { font-size: 11.5px; opacity: 0.85; white-space: nowrap; }
-
-  .card .body { padding: 18px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-  .card .body h3 {
-    margin: 0;
-    font-size: 18px;
-    line-height: 1.28;
-    font-weight: 700;
-    text-wrap: balance;
-  }
-  .card .body p {
-    margin: 0;
-    font-size: 13.5px;
-    line-height: 1.5;
-    color: #5c5c54;
-    flex: 1;
-  }
-  .card .flag {
-    display: inline-block;
-    align-self: flex-start;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    padding: 2px 9px;
-    border-radius: 999px;
-  }
-  .card.cycle .flag { background: #fdeceb; color: #a8382b; }
-  .card.triage .flag { background: #fdeceb; color: #a8382b; }
-  .card.other .flag { background: #fbeee0; color: #8a5a2b; }
-
-  .card .footer {
-    padding: 14px 18px;
-    border-top: 1px solid #edeae1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  .who { display: flex; align-items: center; gap: 9px; min-width: 0; }
-  .avatar {
-    width: 30px; height: 30px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 700; color: #fff;
-    flex: none;
-  }
-  .who .names { min-width: 0; }
-  .who .name { font-size: 12.5px; font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .who .role { font-size: 11px; color: #8a8a80; }
-  .cta {
-    flex: none;
-    background: #1c1c1a;
-    color: #f5f2ea;
-    font-size: 12px;
-    font-weight: 650;
-    text-decoration: none;
-    padding: 8px 13px;
-    border-radius: 8px;
-    white-space: nowrap;
-  }
-  .cta:hover { background: #33332f; }
-
-  /* ---------- Empty state ---------- */
-  .empty {
-    background: #ffffff;
-    border: 1px dashed #d8d4c8;
-    border-radius: 14px;
-    padding: 48px 20px;
-    text-align: center;
-  }
-  .empty .emoji { font-size: 40px; }
-  .empty p { margin: 12px 0 0; font-size: 16px; font-weight: 650; color: #2c3a31; }
-  .empty span.sub { display: block; margin-top: 4px; font-size: 13px; font-weight: 500; color: #8a8a80; }
-
-  footer.pagefoot {
-    max-width: 1180px; margin: 0 auto; padding: 0 24px 40px;
-    font-size: 12px; color: #9a9a8f; text-align: center;
-  }
-</style>
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
@@ -206,7 +14,7 @@
   <div class="hero-inner">
     <h1 class="serif">Minipod Digest</h1>
     <p class="tagline serif">Every Minipod (TMS) lane, one page.</p>
-    <div class="meta-row"><span class="dot"></span>generated Mon, Sep 7 2026 &middot; 1:30 PM ET</div>
+    <div class="meta-row"><span class="dot"></span>generated Mon, Sep 7 2026 &middot; 1:45 PM ET</div>
   </div>
 </div>
 
@@ -222,38 +30,38 @@
       <div class="card cycle">
         <div class="top"><span class="label">Minipod (TMS) &middot; In Development</span><span class="date">due Sep 4</span></div>
         <div class="body">
-          <span class="flag">3d overdue</span>
-          <h3><a href="https://linear.app/gobolt/project/tms-as-a-standalone-product-cycle-2026-5-a55c3e1bcdf3" target="_blank" rel="noopener">TMS as a Standalone Product &mdash; Cycle 2026-5</a></h3>
-          <p>Decoupling TMS fully from legacy fulfillment. Past its target date and still being built.</p>
+          <span class="flag">3d overdue &middot; stalled 7d</span>
+          <h3><a href="projects/tms-standalone-cycle-2026-5.html">TMS as a Standalone Product &mdash; Cycle 2026-5</a></h3>
+          <p>Decoupling TMS fully from legacy fulfillment. No completions in a week and the one in-progress item hasn't moved in 13 days.</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#24463b">FO</div><div class="names"><div class="name">Funmi Olaiya</div><div class="role">Lead &middot; you</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/tms-as-a-standalone-product-cycle-2026-5-a55c3e1bcdf3" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/tms-standalone-cycle-2026-5.html">Open digest &rarr;</a>
         </div>
       </div>
 
       <div class="card cycle">
         <div class="top"><span class="label">Minipod (TMS) &middot; In Development</span><span class="date">due Sep 22</span></div>
         <div class="body">
-          <h3><a href="https://linear.app/gobolt/project/fulfilio-gobolt-carrier-integration-mejuri-4a07b9859675" target="_blank" rel="noopener">Fulfil.io GoBolt Carrier Integration [Mejuri]</a></h3>
-          <p>Carrier integration build for Mejuri via Fulfil.io. On track &mdash; 15 days to target.</p>
+          <h3><a href="projects/fulfilio-mejuri.html">Fulfil.io GoBolt Carrier Integration [Mejuri]</a></h3>
+          <p>Carrier integration build for Mejuri. Active this week &mdash; Moazzam Reza is carrying most of it.</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#24463b">AC</div><div class="names"><div class="name">Alex Cheng</div><div class="role">Lead &middot; you're on it</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/fulfilio-gobolt-carrier-integration-mejuri-4a07b9859675" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/fulfilio-mejuri.html">Open digest &rarr;</a>
         </div>
       </div>
 
       <div class="card cycle">
         <div class="top"><span class="label">Minipod (TMS) &middot; Grooming</span><span class="date">due Sep 4</span></div>
         <div class="body">
-          <span class="flag">3d overdue</span>
-          <h3><a href="https://linear.app/gobolt/project/improve-reschedule-and-cancel-gbp-orders-flows-1047296427b2" target="_blank" rel="noopener">Improve Reschedule &amp; Cancel GBP Orders Flows</a></h3>
-          <p>Reworking reschedule/cancel flows for GBP orders. Past target, still moving.</p>
+          <span class="flag">3d overdue &middot; stalled 26d</span>
+          <h3><a href="projects/reschedule-cancel-gbp-orders.html">Improve Reschedule &amp; Cancel GBP Orders Flows</a></h3>
+          <p>Nothing has moved on this since Aug 12 &mdash; worth checking whether it's actually being worked.</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#24463b">NT</div><div class="names"><div class="name">Nikhil Tallapureddy</div><div class="role">Lead</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/improve-reschedule-and-cancel-gbp-orders-flows-1047296427b2" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/reschedule-cancel-gbp-orders.html">Open digest &rarr;</a>
         </div>
       </div>
 
@@ -270,60 +78,60 @@
       <div class="card other">
         <div class="top"><span class="label">Minipod (TMS) &middot; In Planning</span><span class="date">no date</span></div>
         <div class="body">
-          <h3><a href="https://linear.app/gobolt/project/improve-fbb-heavy-flows-8a3e4ece0c68" target="_blank" rel="noopener">Improve FBB Heavy Flows</a></h3>
-          <p>Still being shaped &mdash; no lead assigned yet.</p>
+          <h3><a href="projects/improve-fbb-heavy-flows.html">Improve FBB Heavy Flows</a></h3>
+          <p>Still being shaped &mdash; no issues filed yet, no lead assigned.</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#8a6a52">&mdash;</div><div class="names"><div class="name">Unassigned</div><div class="role">In Planning</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/improve-fbb-heavy-flows-8a3e4ece0c68" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/improve-fbb-heavy-flows.html">Open digest &rarr;</a>
         </div>
       </div>
 
       <div class="card other">
         <div class="top"><span class="label">Minipod (TMS) &middot; In Planning</span><span class="date">no date</span></div>
         <div class="body">
-          <h3><a href="https://linear.app/gobolt/project/product-initiative-delivery-comms-vs-delivery-accuracy-8d89ecb1681f" target="_blank" rel="noopener">Delivery Comms vs. Delivery Accuracy</a></h3>
-          <p>Product initiative weighing communication changes against accuracy improvements.</p>
+          <h3><a href="projects/delivery-comms-vs-accuracy.html">Delivery Comms vs. Delivery Accuracy</a></h3>
+          <p>Product initiative, still being shaped &mdash; no issues filed yet.</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#8a6a52">SK</div><div class="names"><div class="name">sanaa kahloan</div><div class="role">Lead</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/product-initiative-delivery-comms-vs-delivery-accuracy-8d89ecb1681f" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/delivery-comms-vs-accuracy.html">Open digest &rarr;</a>
         </div>
       </div>
 
       <div class="card other">
         <div class="top"><span class="label">Minipod (TMS) &middot; In Planning</span><span class="date">no date</span></div>
         <div class="body">
-          <h3><a href="https://linear.app/gobolt/project/gobolt-tms-dsp-billing-route-payouts-1832af3d975e" target="_blank" rel="noopener">GoBolt TMS: DSP Billing &mdash; Route Payouts</a></h3>
-          <p>Payout mechanics for DSP billing, still in planning.</p>
+          <h3><a href="projects/dsp-billing-route-payouts.html">GoBolt TMS: DSP Billing &mdash; Route Payouts</a></h3>
+          <p>Payout mechanics for DSP billing, still being shaped &mdash; no issues filed yet.</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#8a6a52">SK</div><div class="names"><div class="name">sanaa kahloan</div><div class="role">Lead</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/gobolt-tms-dsp-billing-route-payouts-1832af3d975e" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/dsp-billing-route-payouts.html">Open digest &rarr;</a>
         </div>
       </div>
 
       <div class="card other">
         <div class="top"><span class="label">Minipod (TMS) &middot; Ready for Betting</span><span class="date">no date</span></div>
         <div class="body">
-          <h3><a href="https://linear.app/gobolt/project/gb-driver-enable-offline-pod-photo-upload-91320338ad5d" target="_blank" rel="noopener">GB Driver: Enable Offline PoD Photo Upload</a></h3>
+          <h3><a href="projects/gb-driver-offline-pod-upload.html">GB Driver: Enable Offline PoD Photo Upload</a></h3>
           <p>Shaped and ready &mdash; waiting for the next betting table.</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#8a6a52">SK</div><div class="names"><div class="name">sanaa kahloan</div><div class="role">Lead</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/gb-driver-enable-offline-pod-photo-upload-91320338ad5d" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/gb-driver-offline-pod-upload.html">Open digest &rarr;</a>
         </div>
       </div>
 
       <div class="card other">
         <div class="top"><span class="label">Minipod (TMS) &middot; On Hold</span><span class="date">no date</span></div>
         <div class="body">
-          <h3><a href="https://linear.app/gobolt/project/appointments-table-6082e54316e4" target="_blank" rel="noopener">Appointments Table</a></h3>
-          <p>Paused, no target set yet &mdash; not currently stale.</p>
+          <h3><a href="projects/appointments-table.html">Appointments Table</a></h3>
+          <p>Paused, no target set yet &mdash; barely started (one old backlog item).</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#8a6a52">AL</div><div class="names"><div class="name">Anthony Langford</div><div class="role">Lead</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/appointments-table-6082e54316e4" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/appointments-table.html">Open digest &rarr;</a>
         </div>
       </div>
 
@@ -331,36 +139,37 @@
         <div class="top"><span class="label">Minipod (TMS) &middot; On Hold</span><span class="date">no date</span></div>
         <div class="body">
           <span class="flag">High priority</span>
-          <h3><a href="https://linear.app/gobolt/project/gb-driver-verification-for-returned-packages-at-warehouse-a064e5ef1564" target="_blank" rel="noopener">GB Driver: Verification for Returned Packages</a></h3>
-          <p>High priority but paused with no target date &mdash; worth a look.</p>
+          <h3><a href="projects/gb-driver-verification-returned-packages.html">GB Driver: Verification for Returned Packages</a></h3>
+          <p>13 issues shaped and sitting in backlog &mdash; several still tagged for a cycle that already passed.</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#8a6a52">AC</div><div class="names"><div class="name">Alex Cheng</div><div class="role">Lead</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/gb-driver-verification-for-returned-packages-at-warehouse-a064e5ef1564" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/gb-driver-verification-returned-packages.html">Open digest &rarr;</a>
         </div>
       </div>
 
       <div class="card other">
         <div class="top"><span class="label">Minipod (TMS) &middot; On Hold</span><span class="date">no date</span></div>
         <div class="body">
-          <h3><a href="https://linear.app/gobolt/project/fsas-user-experience-improvements-8ebcf4865113" target="_blank" rel="noopener">FSAs User Experience Improvements</a></h3>
-          <p>Paused, no target set yet.</p>
+          <span class="flag">1 stalled 1yr+</span>
+          <h3><a href="projects/fsas-ux-improvements.html">FSAs User Experience Improvements</a></h3>
+          <p>One issue has been "In Progress" since March 2025 &mdash; worth a sanity check.</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#8a6a52">AZ</div><div class="names"><div class="name">Annie Zhang</div><div class="role">Lead</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/fsas-user-experience-improvements-8ebcf4865113" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/fsas-ux-improvements.html">Open digest &rarr;</a>
         </div>
       </div>
 
       <div class="card other">
         <div class="top"><span class="label">Minipod (TMS) &middot; On Hold</span><span class="date">no date</span></div>
         <div class="body">
-          <h3><a href="https://linear.app/gobolt/project/move-ikea-to-transport-api-8b280105949d" target="_blank" rel="noopener">Move IKEA to Transport API</a></h3>
-          <p>Paused, no target set yet.</p>
+          <h3><a href="projects/move-ikea-transport-api.html">Move IKEA to Transport API</a></h3>
+          <p>Paused, no target set &mdash; two untouched backlog items.</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#8a6a52">NT</div><div class="names"><div class="name">Nikhil Tallapureddy</div><div class="role">Lead</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/move-ikea-to-transport-api-8b280105949d" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/move-ikea-transport-api.html">Open digest &rarr;</a>
         </div>
       </div>
 
@@ -377,26 +186,26 @@
       <div class="card triage">
         <div class="top"><span class="label">Minipod (TMS) &middot; On Hold</span><span class="date">due Sep 4</span></div>
         <div class="body">
-          <span class="flag">3d lapsed</span>
-          <h3><a href="https://linear.app/gobolt/project/rate-api-alerting-and-monitoring-aug-6-2026-outage-follow-up-b3a44e838438" target="_blank" rel="noopener">Rate API Alerting &amp; Monitoring &mdash; Aug 6 Outage Follow-up</a></h3>
-          <p>Paused with a lapsed target. Rebet it next cycle, or close it out.</p>
+          <span class="flag">3d lapsed &middot; actually active</span>
+          <h3><a href="projects/rate-api-alerting-monitoring.html">Rate API Alerting &amp; Monitoring &mdash; Aug 6 Outage Follow-up</a></h3>
+          <p>Labeled paused, but Annie shipped 12 issues on it in the last two weeks. The label may just be stale.</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#8a3b2f">AZ</div><div class="names"><div class="name">Annie Zhang</div><div class="role">Lead &middot; you're on it</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/rate-api-alerting-and-monitoring-aug-6-2026-outage-follow-up-b3a44e838438" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/rate-api-alerting-monitoring.html">Open digest &rarr;</a>
         </div>
       </div>
 
       <div class="card triage">
         <div class="top"><span class="label">Minipod (TMS) &middot; On Hold</span><span class="date">due Jul 17</span></div>
         <div class="body">
-          <span class="flag">52d lapsed</span>
-          <h3><a href="https://linear.app/gobolt/project/gb-driver-phone-number-masking-7cec8c43a956" target="_blank" rel="noopener">GB Driver: Phone Number Masking</a></h3>
-          <p>Paused with a lapsed target. Rebet it next cycle, or close it out.</p>
+          <span class="flag">52d lapsed &middot; ready to close</span>
+          <h3><a href="projects/gb-driver-phone-number-masking.html">GB Driver: Phone Number Masking</a></h3>
+          <p>Everything's shipped except one monitoring follow-up. Candidate to formally close, not rebet.</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#8a3b2f">AC</div><div class="names"><div class="name">Alex Cheng</div><div class="role">Lead</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/gb-driver-phone-number-masking-7cec8c43a956" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/gb-driver-phone-number-masking.html">Open digest &rarr;</a>
         </div>
       </div>
 
@@ -404,64 +213,55 @@
         <div class="top"><span class="label">Minipod (TMS) &middot; On Hold</span><span class="date">due Jul 17</span></div>
         <div class="body">
           <span class="flag">52d lapsed</span>
-          <h3><a href="https://linear.app/gobolt/project/support-package-delivery-with-transport-models-follow-up-8c9868a04718" target="_blank" rel="noopener">Support Package Delivery w/ Transport Models &mdash; Follow-up</a></h3>
-          <p>Paused with a lapsed target. Rebet it next cycle, or close it out.</p>
+          <h3><a href="projects/support-package-delivery-followup.html">Support Package Delivery w/ Transport Models &mdash; Follow-up</a></h3>
+          <p>Has real in-flight work &mdash; one item has sat in QA for 3+ weeks with no movement.</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#8a3b2f">NT</div><div class="names"><div class="name">Nikhil Tallapureddy</div><div class="role">Lead</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/support-package-delivery-with-transport-models-follow-up-8c9868a04718" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/support-package-delivery-followup.html">Open digest &rarr;</a>
         </div>
       </div>
 
       <div class="card triage">
         <div class="top"><span class="label">Minipod (TMS) &middot; On Hold</span><span class="date">due Jul 31</span></div>
         <div class="body">
-          <span class="flag">38d lapsed</span>
-          <h3><a href="https://linear.app/gobolt/project/ev-data-collection-69faa891a5ef" target="_blank" rel="noopener">EV Data Collection</a></h3>
-          <p>Paused with a lapsed target. Rebet it next cycle, or close it out.</p>
+          <span class="flag">38d lapsed &middot; ready to close</span>
+          <h3><a href="projects/ev-data-collection.html">EV Data Collection</a></h3>
+          <p>Effectively shipped &mdash; one small unassigned bug left. Candidate to formally close.</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#8a3b2f">NT</div><div class="names"><div class="name">Nikhil Tallapureddy</div><div class="role">Lead</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/ev-data-collection-69faa891a5ef" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/ev-data-collection.html">Open digest &rarr;</a>
         </div>
       </div>
 
       <div class="card triage">
         <div class="top"><span class="label">Minipod (TMS) &middot; On Hold</span><span class="date">due May 1</span></div>
         <div class="body">
-          <span class="flag">129d lapsed</span>
-          <h3><a href="https://linear.app/gobolt/project/tms-migrate-from-jest-to-vitest-844c6dcf0ebb" target="_blank" rel="noopener">TMS &ndash; Migrate from Jest to Vitest</a></h3>
-          <p>Paused with a lapsed target. Rebet it next cycle, or close it out.</p>
+          <span class="flag">129d lapsed &middot; ready to close</span>
+          <h3><a href="projects/tms-jest-to-vitest.html">TMS &ndash; Migrate from Jest to Vitest</a></h3>
+          <p>Mostly done &mdash; one backlog cleanup item left untouched since May. Candidate to close.</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#8a3b2f">KP</div><div class="names"><div class="name">Krisha Porcincula</div><div class="role">Lead</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/tms-migrate-from-jest-to-vitest-844c6dcf0ebb" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/tms-jest-to-vitest.html">Open digest &rarr;</a>
         </div>
       </div>
 
       <div class="card triage">
         <div class="top"><span class="label">Minipod (TMS) &middot; On Hold</span><span class="date">due Mar 31</span></div>
         <div class="body">
-          <span class="flag">160d lapsed</span>
-          <h3><a href="https://linear.app/gobolt/project/optimate-gcp-migration-map-accuracy-improvement-2ac36c0c2889" target="_blank" rel="noopener">Optimate &ndash; GCP Migration + Map Accuracy Improvement</a></h3>
-          <p>Paused with a lapsed target. Rebet it next cycle, or close it out.</p>
+          <span class="flag">160d lapsed &middot; ready to close</span>
+          <h3><a href="projects/optimate-gcp-migration.html">Optimate &ndash; GCP Migration + Map Accuracy Improvement</a></h3>
+          <p>Migration shipped in January. Three small cleanup items are all that's left.</p>
         </div>
         <div class="footer">
           <div class="who"><div class="avatar" style="background:#8a3b2f">RC</div><div class="names"><div class="name">Roman Chebotarev</div><div class="role">Lead</div></div></div>
-          <a class="cta" href="https://linear.app/gobolt/project/optimate-gcp-migration-map-accuracy-improvement-2ac36c0c2889" target="_blank" rel="noopener">View in Linear &rarr;</a>
+          <a class="cta" href="projects/optimate-gcp-migration.html">Open digest &rarr;</a>
         </div>
       </div>
 
     </div>
-
-    <!-- Empty-state markup (shown only when Triage has zero cards — delete the .cards block above and uncomment this):
-    <div class="empty">
-      <div class="emoji">🎉</div>
-      <p>Bravo &mdash; nothing needs triage right now!</p>
-      <span class="sub">Every paused lane is either current or already decided.</span>
-    </div>
-    -->
-
   </section>
 
 </main>
